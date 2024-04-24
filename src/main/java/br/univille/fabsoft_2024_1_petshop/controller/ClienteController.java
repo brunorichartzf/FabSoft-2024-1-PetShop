@@ -11,6 +11,7 @@ import br.univille.fabsoft_2024_1_petshop.entity.Cliente;
 import br.univille.fabsoft_2024_1_petshop.service.ClienteService;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -40,5 +41,11 @@ public class ClienteController {
     public ModelAndView save(Cliente cliente){
         service.save(cliente);
         return new ModelAndView("redirect:/clientes");
+    }
+
+    @GetMapping("/alterar/{id}")
+    public ModelAndView alterar(@PathVariable("id") long id){
+        var cliente = service.getById(id);
+        return new ModelAndView("cliente/form","cliente",cliente);
     }
 }
