@@ -30,5 +30,5 @@ public class Pet {
     private String raca;
 
     @Column(length = 1000)
-    private String cliente;
+    private Long cliente;
 }

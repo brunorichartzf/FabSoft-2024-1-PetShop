@@ -4,8 +4,8 @@
     <body>
         <main class="container">
             <nav th:replace="layout :: menu">(menu)</nav>
-            <h1>Pet</h1>
-            <form th:action="@{/pets}" method="post" th:object="${pet}">
+            <h1>Produto</h1>
+            <form th:action="@{/produtos}" method="post" th:object="${produto}">
 
                 <input type="hidden" th:field="*{id}">
                 
@@ -15,18 +15,23 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="txtespecie">Espécie</label>
-                    <input type="text" th:field="*{especie}" class="form-control" id="txtespecie">
+                    <label for="txtmarca">Marca</label>
+                    <input type="text" th:field="*{marca}" class="form-control" id="txtmarca">
                 </div>
 
                 <div class="form-group">
-                    <label for="txtraca">Raça</label>
-                    <input type="text" th:field="*{raca}" class="form-control" id="txtraca">
+                    <label for="txtvalidade">Validade</label>
+                    <input type="date" th:field="*{validade}" class="form-control" id="txtvalidade">
                 </div>
 
                 <div class="form-group">
-                    <label for="txtcliente">Cliente</label>
-                    <input type="number" th:field="*{cliente}" class="form-control" id="txtcliente">
+                    <label for="txtcategoria">Categoria</label>
+                    <input type="text" th:field="*{categoria}" class="form-control" id="txtcategoria">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtquantidade">Quantidade</label>
+                    <input type="text" th:field="*{quantidade}" class="form-control" id="txtquantidade">
                 </div>
 
                 <div class="form-group">
