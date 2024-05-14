@@ -19,8 +19,10 @@ public class Startup {
     public void onApplicationEvent(ContextRefreshedEvent event){
 
         var cliente1 = new Cliente();
-        cliente1.setNome("Bruno");
-        cliente1.setEndereco("Perto da minha vó");
+        cliente1.setNome("Cliente");
+        cliente1.setTelefone(1234567890);
+        cliente1.setEmail("cliente@email.com");
+        cliente1.setEndereco("Casa do cliente");
         cliente1.setDataNascimento(new Date(2024,04,17));
         service.save(cliente1);
     }
