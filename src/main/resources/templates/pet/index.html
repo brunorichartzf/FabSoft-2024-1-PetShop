@@ -21,7 +21,7 @@
                     <td th:text="${umPet.nome}"></td>
                     <td th:text="${umPet.especie}"></td>
                     <td th:text="${umPet.raca}"></td>
-                    <td th:text="${umPet.cliente}"></td>
+                    <td th:text="${umPet.cliente?.id}"></td>
                     <td><a th:href="@{'/pets/alterar/' + ${umPet.id}}" class="btn btn-warning">Alterar</a>
                         <button class="btn btn-danger js-delete" th:data-id="${umPet.id}">Excluir</button>
                     </td>

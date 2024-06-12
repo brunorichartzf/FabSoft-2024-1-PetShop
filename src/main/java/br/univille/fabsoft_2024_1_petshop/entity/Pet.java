@@ -4,11 +4,13 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
@@ -29,8 +31,8 @@ public class Pet {
     @Column(length = 1000)
     private String raca;
 
-    @Column(length = 1000)
-    private Long cliente;
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    private Cliente cliente;
 
     public long getId() {
         return id;
@@ -64,13 +66,15 @@ public class Pet {
         this.raca = raca;
     }
 
-    public Long getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(Long cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
+    
 
     
 }

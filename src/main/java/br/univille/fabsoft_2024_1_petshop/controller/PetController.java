@@ -1,5 +1,7 @@
 package br.univille.fabsoft_2024_1_petshop.controller;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.univille.fabsoft_2024_1_petshop.entity.Pet;
+import br.univille.fabsoft_2024_1_petshop.service.ClienteService;
 import br.univille.fabsoft_2024_1_petshop.service.PetService;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +27,9 @@ public class PetController {
 
     @Autowired
     private PetService service;
+
+    @Autowired
+    private ClienteService clienteService;
     
     @GetMapping
     public ModelAndView index(){
@@ -34,7 +40,13 @@ public class PetController {
     @GetMapping("/novo")
     public ModelAndView novo(){
         var pet = new Pet();
-        return new ModelAndView("pet/form","pet",pet);
+        var listaClientes = clienteService.getAll();
+
+        HashMap<String,Object> dados = new HashMap<>();
+        dados.put("pet",pet);
+        dados.put("listaClientes",listaClientes);
+
+        return new ModelAndView("pet/form",dados);
     }
 
     @PostMapping
@@ -46,7 +58,13 @@ public class PetController {
     @GetMapping("/alterar/{id}")
     public ModelAndView alterar(@PathVariable("id") long id){
         var pet = service.getById(id);
-        return new ModelAndView("pet/form","pet",pet);
+        var listaClientes = clienteService.getAll();
+
+        HashMap<String,Object> dados = new HashMap<>();
+        dados.put("pet",pet);
+        dados.put("listaClientes",listaClientes);
+
+        return new ModelAndView("pet/form",dados);
     }
 
     @GetMapping("/delete/{id}")
