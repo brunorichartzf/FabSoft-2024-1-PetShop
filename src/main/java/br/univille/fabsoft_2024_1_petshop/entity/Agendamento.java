@@ -16,6 +16,7 @@ public class Agendamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date data;
@@ -23,12 +24,12 @@ public class Agendamento {
 
     @Temporal(TemporalType.TIME)
     @DateTimeFormat(pattern = "hh:mm")
-    private Date hora;
+    private String hora;
     
-    public Date getHora() {
+    public String getHora() {
         return hora;
     }
-    public void setHora(Date hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
     private String descricao;

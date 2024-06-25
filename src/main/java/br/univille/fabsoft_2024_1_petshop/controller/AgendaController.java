@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import br.univille.fabsoft_2024_1_petshop.entity.Agendamento;
 import br.univille.fabsoft_2024_1_petshop.service.AgendamentoService;
@@ -75,4 +76,15 @@ public class AgendaController {
         return new ModelAndView("agenda/index",dados);
     }
     
+    @GetMapping("/novo")
+    public ModelAndView novo(){
+        var agendamento = new Agendamento();
+        return new ModelAndView("agenda/form","agendamento",agendamento);
+    }
+
+    @PostMapping
+    public ModelAndView save(Agendamento agendamento){
+        service.save(agendamento);
+        return new ModelAndView("redirect:/agenda");
+    }
 }

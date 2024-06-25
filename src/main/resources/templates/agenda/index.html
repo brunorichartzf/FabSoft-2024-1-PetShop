@@ -2,115 +2,57 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
     <head th:include="layout :: htmlhead"></head>
     <style>
-      .fso-titulo {
-        background-color: cornflowerblue;
-        border: 1px solid black;
-        font-weight: bold;
-      }
-      .fso-dia {
-        background-color: whitesmoke;
-        border: 1px solid black;
-        min-width: 111px;
-        min-height: 64px;
-      }
-      ul {
-        list-style-type: none;
-        padding: 0;
-        
-      }
-    </style>
-    <body>
-        
-        <nav th:replace="layout :: menu">(menu)</nav>
-        <main class="container">
-        <h5 th:text="'AGENDA: ' + ${agenda.mes}+'/'+${agenda.ano}"></h5>
-        <a th:href="${'/agenda/'+(agenda.mes-1)+'/'+agenda.ano}">Anterior</a>
-        <a th:href="${'/agenda/'+(agenda.mes+1)+'/'+agenda.ano}">Próximo</a>
-        <div class="text-center">
-            <div class="row justify-content-center">
-              <div class="col fso-titulo">Segunda</div>
-              <div class="col fso-titulo">Terça</div>
-              <div class="col fso-titulo">Quarta</div>
-              <div class="col fso-titulo">Quinta</div>
-              <div class="col fso-titulo">Sexta</div>
-              <div class="col fso-titulo">Sábado</div>
-              <div class="col fso-titulo">Domingo</div>
-            </div>
-            <div class="row justify-content-center" th:each="semana : ${agenda.listaSemanas}">
-              <div class="col fso-dia" 
-                  th:each="dia : ${semana.listaDias}">
-                  <div th:if="${dia.dia != 0}">
-                    <span th:text="${dia.dia}"></span>
-
-                      <ul>
-                        <li th:each="agendamento : ${dia.listaAgendamentos}"
-                        th:if="${agendamento}"
-                        th:text="${agendamento.hora + '/' + agendamento.descricao}"></li>
-                      </ul>
-                  </div>
+        .fso-titulo {
+          background-color: cornflowerblue;
+          border: 1px solid black;
+          font-weight: bold;
+        }
+        .fso-dia {
+          background-color: whitesmoke;
+          border: 1px solid black;
+          min-width: 111px;
+          min-height: 64px;
+        }
+        ul {
+          list-style-type: none;
+          padding: 0;
+          
+        }
+      </style>
+      <body>
+          
+          <nav th:replace="layout :: menu">(menu)</nav>
+          <main class="container">
+          <h5 th:text="'AGENDA: ' + ${agenda.mes}+'/'+${agenda.ano}"></h5>
+          <a th:href="${'/agenda/'+(agenda.mes-1)+'/'+agenda.ano}">Anterior</a>
+          <a th:href="${'/agenda/'+(agenda.mes+1)+'/'+agenda.ano}">Próximo</a>
+          <div class="text-center">
+              <div class="row justify-content-center">
+                <div class="col fso-titulo">Segunda</div>
+                <div class="col fso-titulo">Terça</div>
+                <div class="col fso-titulo">Quarta</div>
+                <div class="col fso-titulo">Quinta</div>
+                <div class="col fso-titulo">Sexta</div>
+                <div class="col fso-titulo">Sábado</div>
+                <div class="col fso-titulo">Domingo</div>
               </div>
-            </div>
-        </div>
-
-        <form th:action="@{/agendamentos}" method="post" th:object="${agendamento}" id="formcliente">
-
-            <input type="hidden" th:field="*{id}">
-
-            <div class="form-group">
-                <label for="txtdia">Dia</label>
-                <input type="text" th:field="*{dia}" class="form-control" id="txtdia">
-            </div>
-
-            <div class="form-group">
-                <label for="txthora">Horário</label>
-                <input type="text" th:field="*{hora}" class="form-control" id="txthora">
-            </div>
-
-            <div class="form-group">
-                <label for="txtcliente">Cliente</label>
-                <select th:field="*{cliente}"  class="form-select" id="txtnome">
-                    <option th:each="umCliente : ${listaClientes}"
-                        th:text="${umCliente.nome}"
-                        th:value="${umCliente.id}"></option>
-                    
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="txtpet">Pet</label>
-                <input type="text" th:field="*{pet}" class="form-control" id="txtpet">
-            </div>
-
-            <div class="form-group">
-                <label for="txtservico">Serviço</label>
-                <input type="text" th:field="*{servico}" class="form-control" id="txtservico">
-            </div>
-
-            <div class="form-group">
-                <button class="btn btn-primary js-confirm" type="button">Enviar</button>
-            </div>
-    </main>
-
-    <div class="modal" tabindex="-1" id="modalagenda">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Criar agendamento</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" id="modalbody"></div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
-                <div class="form-group">
-                    <button class="btn btn-primary" type="submit">Enviar</button>
+              <div class="row justify-content-center" th:each="semana : ${agenda.listaSemanas}">
+                <div class="col fso-dia" 
+                    th:each="dia : ${semana.listaDias}">
+                    <div th:if="${dia.dia != 0}">
+                      <span th:text="${dia.dia}"></span>
+  
+                        <ul>
+                          <li th:each="agendamento : ${dia.listaAgendamentos}"
+                          th:if="${agendamento}"
+                          th:text="${agendamento.hora + '/' + agendamento.descricao}"></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
+              </div>
           </div>
-        </div>
-      </div>
-
-    <div th:include="layout :: footer">(footer)</div>
-    <script th:src="@{/confagendamento.js}"></script>
-    </form>
-  </body>
+          <br>
+          
+          <a href="/agenda/novo" class="btn btn-primary">Novo</a>
+    </body>
 </html>
