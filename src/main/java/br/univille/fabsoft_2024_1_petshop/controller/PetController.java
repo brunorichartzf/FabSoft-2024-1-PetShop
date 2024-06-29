@@ -9,6 +9,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import br.univille.fabsoft_2024_1_petshop.service.SalvarArquivosService;
+import br.univille.fabsoft_2024_1_petshop.entity.Cliente;
 import br.univille.fabsoft_2024_1_petshop.entity.Pet;
 import br.univille.fabsoft_2024_1_petshop.service.ClienteService;
 import br.univille.fabsoft_2024_1_petshop.service.PetService;
@@ -30,6 +40,9 @@ public class PetController {
 
     @Autowired
     private ClienteService clienteService;
+
+    @Autowired
+    private SalvarArquivosService salvarArquivoService;
     
     @GetMapping
     public ModelAndView index(){
@@ -50,7 +63,12 @@ public class PetController {
     }
 
     @PostMapping
-    public ModelAndView save(Pet pet){
+    public ModelAndView save(Pet pet, @RequestParam("file") MultipartFile file){
+        if(file.getSize() != 0){
+            String caminho = salvarArquivoService.save(file);
+            pet.setFoto(caminho);
+        }
+
         service.save(pet);
         return new ModelAndView("redirect:/pets");
     }
@@ -71,5 +89,19 @@ public class PetController {
     public ModelAndView delete(@PathVariable("id") long id){
         service.delete(id);
         return new ModelAndView("redirect:/pets");
+    }
+
+    @GetMapping(value = "/image/{id}")
+    public @ResponseBody byte[] getImage(@PathVariable("id") Pet pet){
+        try{
+            File file = new File(pet.getFoto());
+            byte[] bytes = new byte[(int) file.length()];
+            try(DataInputStream dis = new DataInputStream(new FileInputStream(file));){
+                dis.readFully(bytes);
+            }
+            return bytes;
+        }catch (Exception e){
+            return new byte[0];
+        }
     }
 }

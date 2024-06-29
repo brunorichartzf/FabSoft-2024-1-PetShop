@@ -31,9 +31,11 @@ public class Pet {
     @Column(length = 1000)
     private String raca;
 
+    private String foto;
+
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Cliente cliente;
-
+    
     public long getId() {
         return id;
     }
@@ -74,7 +76,11 @@ public class Pet {
         this.cliente = cliente;
     }
 
-    
-
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+    public String getFoto() {
+        return foto;
+    }
     
 }

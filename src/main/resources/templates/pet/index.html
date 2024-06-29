@@ -18,11 +18,12 @@
             </thead>
             <tbody>
                 <tr th:each="umPet : ${listaPets}">
-                    <td th:text="${umPet.nome}"></td>
-                    <td th:text="${umPet.especie}"></td>
-                    <td th:text="${umPet.raca}"></td>
-                    <td th:text="${umPet.cliente?.nome}"></td>
-                    <td><a th:href="@{'/pets/alterar/' + ${umPet.id}}" class="btn btn-warning">Alterar</a>
+                    <td th:text="${umPet.nome}" style="vertical-align: middle"></td>
+                    <td th:text="${umPet.especie}" style="vertical-align: middle"></td>
+                    <td th:text="${umPet.raca}" style="vertical-align: middle"></td>
+                    <td th:text="${umPet.cliente?.nome}" style="vertical-align: middle"></td>
+                    <td><img th:src="${umPet.foto}" alt="Unavailable" style="width:200px; height:100px; vertical-align: middle;"></td>
+                    <td style="vertical-align: middle"><a th:href="@{'/pets/alterar/' + ${umPet.id}}" class="btn btn-warning">Alterar</a>
                         <button class="btn btn-danger js-delete" th:data-id="${umPet.id}">Excluir</button>
                     </td>
                 </tr>
