@@ -1,7 +1,9 @@
 package br.univille.fabsoft_2024_1_petshop.controller;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,6 +18,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import br.univille.fabsoft_2024_1_petshop.entity.Agendamento;
 import br.univille.fabsoft_2024_1_petshop.service.AgendamentoService;
+import br.univille.fabsoft_2024_1_petshop.service.PetService;
+import br.univille.fabsoft_2024_1_petshop.service.FuncionarioService;
+import br.univille.fabsoft_2024_1_petshop.service.ClienteService;
 import br.univille.fabsoft_2024_1_petshop.viewmodel.Agenda;
 import br.univille.fabsoft_2024_1_petshop.viewmodel.Dia;
 import br.univille.fabsoft_2024_1_petshop.viewmodel.Semana;
@@ -26,8 +31,15 @@ public class AgendaController {
 
     @Autowired
     private AgendamentoService service;
+    @Autowired
+    private ClienteService clienteService;
+    @Autowired
+    private PetService petService;
+    @Autowired
+    private FuncionarioService funcionarioService;
+    
     @GetMapping({"","/","/{mes}/{ano}"})
-    public ModelAndView index(@PathVariable(name="mes",required = false) Integer mes,
+    public ModelAndView calendario(@PathVariable(name="mes",required = false) Integer mes,
                                 @PathVariable(name="ano",required = false) Integer ano) {
 
         HashMap<String,Object> dados = new HashMap<>();
@@ -73,18 +85,55 @@ public class AgendaController {
         }
         dados.put("agenda", agenda);
 
+        var listaAgendamentos = service.getAll();
+        dados.put("listaAgendamentos", listaAgendamentos);
+
         return new ModelAndView("agenda/index",dados);
     }
     
-    @GetMapping("/novo")
-    public ModelAndView novo(){
+    @GetMapping("/novo/{data}")
+    public ModelAndView novo(@PathVariable("data") String data){
         var agendamento = new Agendamento();
-        return new ModelAndView("agenda/form","agendamento",agendamento);
+        LocalDate localDate = LocalDate.parse(data);
+        Date dataValor = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        agendamento.setData(dataValor);
+
+        var listaClientes = clienteService.getAll();
+        var listaPets = petService.getAll();
+        var listaFuncionarios = funcionarioService.getAll();
+
+        HashMap<String,Object> dados = new HashMap<>();
+        dados.put("agendamento",agendamento);
+        dados.put("listaClientes",listaClientes);
+        dados.put("listaPets",listaPets);
+        dados.put("listaFuncionarios",listaFuncionarios);
+        return new ModelAndView("agenda/form",dados);
     }
 
     @PostMapping
     public ModelAndView save(Agendamento agendamento){
         service.save(agendamento);
+        return new ModelAndView("redirect:/agenda");
+    }
+
+    @GetMapping("/alterar/{id}")
+    public ModelAndView alterar(@PathVariable("id") long id){
+        var agendamento = service.getById(id);
+        var listaClientes = clienteService.getAll();
+        var listaPets = petService.getAll();
+        var listaFuncionarios = funcionarioService.getAll();
+
+        HashMap<String,Object> dados = new HashMap<>();
+        dados.put("agendamento",agendamento);
+        dados.put("listaClientes",listaClientes);
+        dados.put("listaPets",listaPets);
+        dados.put("listaFuncionarios",listaFuncionarios);
+        return new ModelAndView("agenda/form",dados);
+    }
+
+    @GetMapping("/delete/{id}")
+    public ModelAndView delete(@PathVariable("id") long id){
+        service.delete(id);
         return new ModelAndView("redirect:/agenda");
     }
 }

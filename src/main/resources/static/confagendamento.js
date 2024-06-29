@@ -8,11 +8,19 @@
         let input1 = document.getElementById("txtdata").value;
         let input2 = document.getElementById("txthora").value;
         let input3 = document.getElementById("txtdescricao").value;
+        let input4 = document.getElementById("txtcliente").value;
+        let input5 = document.getElementById("txtpet").value;
+        let input6 = document.getElementById("txtfuncionario").value;
+        let input7 = document.getElementById("txtservico").value;
     
         document.getElementById("modalbody").innerHTML = 
-        "Dia: " + input1 + "<br>" + 
+        "Data: " + input1 + "<br>" + 
         "Hora: " + input2 + "<br>" + 
-        "Descrição: " + input3;
+        "Descrição: " + input3 + "<br>" + 
+        "Cliente ID: " + input4 + "<br>" + 
+        "Pet ID: " + input5 + "<br>" + 
+        "Funcionário ID: " + input6 + "<br>" + 
+        "Serviço: " + input7 + "<br>";
     })
 
     

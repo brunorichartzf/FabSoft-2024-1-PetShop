@@ -19,7 +19,7 @@
             </thead>
             <tbody>
                 <tr th:each="umCliente : ${listaClientes}">
-                    <td th:text="${umCliente.nome}"></td>
+                    <td><a th:href="@{'/clientes/detalhes/' + ${umCliente.id}}" th:text="${umCliente.nome}"></a></td>
                     <td th:text="${umCliente.telefone}"></td>
                     <td th:text="${umCliente.email}"></td>
                     <td th:text="${umCliente.endereco}"></td>

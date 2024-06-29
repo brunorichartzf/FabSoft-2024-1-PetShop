@@ -40,7 +40,22 @@
                 <div class="col fso-dia" 
                     th:each="dia : ${semana.listaDias}">
                     <div th:if="${dia.dia != 0}">
-                      <span th:text="${dia.dia}"></span>
+                      <div th:if="${agenda.mes < 10}">
+                        <div th:if="${dia.dia < 10}">
+                          <span><a th:href="@{'/agenda/novo/' + ${agenda.ano} + '-' + '0' + ${agenda.mes} + '-' + '0' + ${dia.dia}}" th:text="${dia.dia}"></a></span>
+                        </div>
+                        <div th:if="${dia.dia >= 10}">
+                          <span><a th:href="@{'/agenda/novo/' + ${agenda.ano} + '-' + '0' + ${agenda.mes} + '-' + ${dia.dia}}" th:text="${dia.dia}"></a></span>
+                        </div>
+                      </div>
+                      <div th:if="${agenda.mes >= 10}">
+                        <div th:if="${dia.dia < 10}">
+                          <span><a th:href="@{'/agenda/novo/' + ${agenda.ano} + '-' + ${agenda.mes} + '-' + '0' + ${dia.dia}}" th:text="${dia.dia}"></a></span>
+                        </div>
+                        <div th:if="${dia.dia >= 10}">
+                          <span><a th:href="@{'/agenda/novo/' + ${agenda.ano} + '-' + ${agenda.mes} + '-' + ${dia.dia}}" th:text="${dia.dia}"></a></span>
+                        </div>
+                      </div>
   
                         <ul>
                           <li th:each="agendamento : ${dia.listaAgendamentos}"
@@ -54,5 +69,54 @@
           <br>
           
           <a href="/agenda/novo" class="btn btn-primary">Novo</a>
+
+          <table class="table" id="tabagendamentos">
+            <thead>
+                <th>Data</th>
+                <th>Hora</th>
+                <th>Descrição</th>
+                <th>Cliente</th>
+                <th>Pet</th>
+                <th>Funcionário</th>
+                <th>Serviço</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr th:each="umAgendamento : ${listaAgendamentos}">
+                    <td th:text="${umAgendamento.data}"></td>
+                    <td th:text="${umAgendamento.hora}"></td>
+                    <td th:text="${umAgendamento.descricao}"></td>
+                    <td th:text="${umAgendamento.cliente?.nome}"></td>
+                    <td th:text="${umAgendamento.pet?.nome}"></td>
+                    <td th:text="${umAgendamento.funcionario?.nome}"></td>
+                    <td th:text="${umAgendamento.servico}"></td>
+                    <td><a th:href="@{'/agenda/alterar/' + ${umAgendamento.id}}" class="btn btn-warning">Alterar</a>
+                        <button class="btn btn-danger js-delete" th:data-id="${umAgendamento.id}">Excluir</button>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <div class="modal" tabindex="-1" id="modalagendamento">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Excluir agendamento</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>Confirma a exclusão do agendamento?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                <button type="button" class="btn btn-primary" id="btnsim">Sim</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <div th:include="layout :: footer">(footer)</div>
+      <script th:src="@{/delagendamento.js}"></script>
     </body>
 </html>

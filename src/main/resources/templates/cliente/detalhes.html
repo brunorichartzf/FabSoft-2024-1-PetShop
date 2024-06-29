@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head th:include="layout :: htmlhead"></head>
+    <body>
+        
+        <nav th:replace="layout :: menu">(menu)</nav>
+
+        <h1>Detalhes</h1>
+        <br>
+
+        <h3>Cliente</h3>
+        <table class="table" id="tabclientes">
+            <thead>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>E-mail</th>
+                <th>Endereço</th>
+                <th>Data Nascimento</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr th:each="umCliente : ${listaClientes}">
+                    <td th:text="${umCliente.nome}"></td>
+                    <td th:text="${umCliente.telefone}"></td>
+                    <td th:text="${umCliente.email}"></td>
+                    <td th:text="${umCliente.endereco}"></td>
+                    <td th:text="${umCliente.dataNascimento}"></td>
+                
+                </tr>
+
+            </tbody>
+        </table>
+        <br>
+
+        <h3>Pets</h3>
+        <table class="table" id="tabpets">
+            <thead>
+                <th>Nome</th>
+                <th>Espécie</th>
+                <th>Raça</th>
+                <th>Cliente</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr th:each="umPet : ${listaPets}">
+                    <td th:text="${umPet.nome}"></td>
+                    <td th:text="${umPet.especie}"></td>
+                    <td th:text="${umPet.raca}"></td>
+                    <td th:text="${umPet.cliente?.nome}"></td>
+                    
+                </tr>
+
+            </tbody>
+        </table>
+        <br>
+
+        <h3>Agendamentos</h3>
+        <table class="table" id="tabagendamentos">
+            <thead>
+                <th>Data</th>
+                <th>Hora</th>
+                <th>Descrição</th>
+                <th>Cliente</th>
+                <th>Pet</th>
+                <th>Funcionário</th>
+                <th>Serviço</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr th:each="umAgendamento : ${listaAgendamentos}">
+                    <td th:text="${umAgendamento.data}"></td>
+                    <td th:text="${umAgendamento.hora}"></td>
+                    <td th:text="${umAgendamento.descricao}"></td>
+                    <td th:text="${umAgendamento.cliente?.nome}"></td>
+                    <td th:text="${umAgendamento.pet?.nome}"></td>
+                    <td th:text="${umAgendamento.funcionario?.nome}"></td>
+                    <td th:text="${umAgendamento.servico}"></td>
+       
+                </tr>
+
+            </tbody>
+        </table>
+
+
+        <div th:include="layout :: footer">(footer)</div>
+    
+    </body>
+</html>

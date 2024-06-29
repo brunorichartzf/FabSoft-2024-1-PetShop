@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.univille.fabsoft_2024_1_petshop.entity.Cliente;
 import br.univille.fabsoft_2024_1_petshop.entity.Pet;
 import br.univille.fabsoft_2024_1_petshop.repository.PetRepository;
 import br.univille.fabsoft_2024_1_petshop.service.PetService;
@@ -28,6 +29,11 @@ public class PetServiceImpl implements PetService{
     @Override
     public List<Pet> getAll() {
        return repository.findAll();
+    }
+
+    @Override
+    public List<Pet> getAllByClienteId(long id) {
+       return repository.findAllByCliente_Id(id);
     }
 
     @Override
