@@ -40,6 +40,7 @@
                 <th>Espécie</th>
                 <th>Raça</th>
                 <th>Cliente</th>
+                <th>Imagem</th>
                 <th></th>
             </thead>
             <tbody>
@@ -48,7 +49,7 @@
                     <td th:text="${umPet.especie}"></td>
                     <td th:text="${umPet.raca}"></td>
                     <td th:text="${umPet.cliente?.nome}"></td>
-                    
+                    <td><img th:src="${umPet.foto}" alt="Unavailable" style="width:200px; height:100px;"></td>
                 </tr>
 
             </tbody>
