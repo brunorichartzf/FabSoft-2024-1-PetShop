@@ -12,7 +12,7 @@
         let input5 = document.getElementById("txtpet").value;
         let input6 = document.getElementById("txtfuncionario").value;
         let input7 = document.getElementById("txtservico").value;
-    
+
         document.getElementById("modalbody").innerHTML = 
         "Data: " + input1 + "<br>" + 
         "Hora: " + input2 + "<br>" + 

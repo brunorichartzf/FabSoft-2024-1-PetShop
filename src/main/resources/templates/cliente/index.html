@@ -5,8 +5,14 @@
         
         <nav th:replace="layout :: menu">(menu)</nav>
 
-        <h1>Clientes</h1>
-        <a href="/clientes/novo" class="btn btn-primary">Novo</a>
+        <div style="text-align: center">
+          <br>
+          <h1>Clientes</h1>
+          <br>
+          <a href="/clientes/novo" class="btn btn-primary">Novo</a>
+          <br>
+          <br>
+        </div>
 
         <table class="table" id="tabclientes">
             <thead>
@@ -18,9 +24,9 @@
                 <th></th>
             </thead>
             <tbody>
-                <tr th:each="umCliente : ${listaClientes}">
-                    <td><a th:href="@{'/clientes/detalhes/' + ${umCliente.id}}" th:text="${umCliente.nome}"></a></td>
-                    <td th:text="${umCliente.telefone}"></td>
+                <tr class="tableitem" th:each="umCliente : ${listaClientes}">
+                    <td><a class="clickable" th:href="@{'/clientes/detalhes/' + ${umCliente.id}}" th:text="${umCliente.nome}"></a></td>
+                    <td  th:text="${umCliente.telefone}"></td>
                     <td th:text="${umCliente.email}"></td>
                     <td th:text="${umCliente.endereco}"></td>
                     <td th:text="${umCliente.dataNascimento}"></td>
@@ -43,8 +49,8 @@
                   <p>Confirma a exclusão do cliente?</p>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
-                  <button type="button" class="btn btn-primary" id="btnsim">Sim</button>
+                  <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Não</button>
+                  <button type="button" class="btn btn-danger" id="btnsim">Sim</button>
                 </div>
               </div>
             </div>

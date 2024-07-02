@@ -5,8 +5,14 @@
         
         <nav th:replace="layout :: menu">(menu)</nav>
 
+        <div style="text-align: center">
+        <br>
         <h1>Produtos</h1>
+        <br>
         <a href="/produtos/novo" class="btn btn-primary">Novo</a>
+        <br>
+        <br>
+        </div>
 
         <table class="table" id="tabprodutos">
             <thead>
@@ -18,7 +24,7 @@
                 <th></th>
             </thead>
             <tbody>
-                <tr th:each="umProduto : ${listaProdutos}">
+                <tr class="tableitem" th:each="umProduto : ${listaProdutos}">
                     <td th:text="${umProduto.nome}"></td>
                     <td th:text="${umProduto.marca}"></td>
                     <td th:text="${umProduto.validade}"></td>
@@ -43,8 +49,8 @@
                   <p>Confirma a exclusão do produto?</p>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
-                  <button type="button" class="btn btn-primary" id="btnsim">Sim</button>
+                  <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Não</button>
+                  <button type="button" class="btn btn-danger" id="btnsim">Sim</button>
                 </div>
               </div>
             </div>

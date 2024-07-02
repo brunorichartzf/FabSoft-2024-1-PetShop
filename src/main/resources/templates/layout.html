@@ -1,6 +1,112 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head th:fragment="htmlhead">
+      <style>
+        .btn-primary {
+            min-width: 150px !important;
+            background-color:rgb(29, 141, 72) !important;
+            border-color: rgb(29, 161, 80) !important;
+            color: white !important;
+        }
+
+        .btn-warning {
+            background-color:rgb(29, 141, 72) !important;
+            border-color: rgb(29, 161, 80) !important;
+            color: white !important;
+        }
+
+        .btn-primary:hover, .btn-warning:hover{
+            
+            background-color:white !important;
+            border-color: rgb(29, 161, 80) !important;
+            color: rgb(29, 141, 72) !important;
+        }
+
+        .btn-danger {
+            background-color:rgb(223, 89, 12) !important;
+            border-color: rgb(223, 89, 12) !important;
+            color: white !important;
+        }
+
+        .btn-danger:hover {
+            background-color:white !important;
+            border-color: rgb(223, 89, 12) !important;
+            color: rgb(223, 89, 12)!important;
+        }
+
+        .btn-primary:focus, .btn-warning:focus, .btn-danger:focus {
+          outline: none !important;
+          box-shadow: none !important;
+        }
+
+        .navbar-expand-lg {
+          background-color: rgb(255, 255, 255);
+          box-shadow: 0 1px 0 #e9ecef;
+          min-height: 50px; 
+        }
+
+        .table {
+          box-shadow: 0 1px 0 #e9ecef;
+        }
+
+        .clickable {
+          color: rgb(29, 141, 72) !important;
+          font-weight: bold;
+          text-decoration: none;
+        }
+
+        .clickable:hover {
+          color: rgb(29, 141, 72) !important;
+          font-weight: bold;
+          text-decoration: underline;
+        }
+
+        .tableitem {
+          vertical-align: middle;
+        }
+
+        .icon {
+          display: inline-block;
+          width: 32px;
+          height: 32px;
+          background-color: currentColor;
+          --svg: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPgoJPHBhdGggZmlsbD0iY3VycmVudENvbG9yIiBkPSJNOC4zNSAzYzEuMTgtLjE3IDIuNDMgMS4xMiAyLjc5IDIuOWMuMzYgMS43Ny0uMjkgMy4zNS0xLjQ3IDMuNTNjLTEuMTcuMTgtMi40My0xLjExLTIuOC0yLjg5Yy0uMzctMS43Ny4zLTMuMzUgMS40OC0zLjU0bTcuMTUgMGMxLjE5LjE5IDEuODUgMS43NyAxLjUgMy41NGMtLjM4IDEuNzgtMS42MyAzLjA3LTIuODEgMi44OWMtMS4xOS0uMTgtMS44NC0xLjc2LTEuNDctMy41M2MuMzYtMS43OCAxLjYxLTMuMDcgMi43OC0yLjlNMyA3LjZjMS4xNC0uNDkgMi42OS40IDMuNSAxLjk1Yy43NiAxLjU4LjUgMy4yNC0uNjMgMy43M3MtMi42Ny0uMzktMy40Ni0xLjk2UzEuOSA4LjA4IDMgNy42bTE4IDBjMS4xLjQ4IDEuMzggMi4xNS41OSAzLjcycy0yLjMzIDIuNDUtMy40NiAxLjk2cy0xLjM5LTIuMTUtLjYzLTMuNzNDMTguMzEgOCAxOS44NiA3LjExIDIxIDcuNm0tMS42NyAxMC43OGMuMDQuOTQtLjY4IDEuOTgtMS41NCAyLjM3Yy0xLjc5LjgyLTMuOTEtLjg4LTUuOS0uODhzLTQuMTMgMS43Ny01Ljg5Ljg4Yy0xLS40OS0xLjY5LTEuNzktMS41Ni0yLjg3Yy4xOC0xLjQ5IDEuOTctMi4yOSAzLjAzLTMuMzhjMS40MS0xLjQxIDIuNDEtNC4wNiA0LjQyLTQuMDZjMiAwIDMuMDYgMi42MSA0LjQxIDQuMDZjMS4xMSAxLjIyIDIuOTYgMi4yNSAzLjAzIDMuODgiIC8+Cjwvc3ZnPg==');
+          -webkit-mask-image: var(--svg);
+          mask-image: var(--svg);
+          -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+          -webkit-mask-size: 100% 100%;
+          mask-size: 100% 100%;
+        }
+
+        .navbar-toggler-icon {
+          display: inline-block;
+          width: 32px;
+          height: 32px;
+          background-color: currentColor;
+          --svg: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPgoJPGcgZmlsbD0ibm9uZSI+CgkJPHBhdGggZD0iTTI0IDB2MjRIMFYwek0xMi41OTMgMjMuMjU4bC0uMDExLjAwMmwtLjA3MS4wMzVsLS4wMi4wMDRsLS4wMTQtLjAwNGwtLjA3MS0uMDM1cS0uMDE2LS4wMDUtLjAyNC4wMDVsLS4wMDQuMDFsLS4wMTcuNDI4bC4wMDUuMDJsLjAxLjAxM2wuMTA0LjA3NGwuMDE1LjAwNGwuMDEyLS4wMDRsLjEwNC0uMDc0bC4wMTItLjAxNmwuMDA0LS4wMTdsLS4wMTctLjQyN3EtLjAwNC0uMDE2LS4wMTctLjAxOG0uMjY1LS4xMTNsLS4wMTMuMDAybC0uMTg1LjA5M2wtLjAxLjAxbC0uMDAzLjAxMWwuMDE4LjQzbC4wMDUuMDEybC4wMDguMDA3bC4yMDEuMDkzcS4wMTkuMDA1LjAyOS0uMDA4bC4wMDQtLjAxNGwtLjAzNC0uNjE0cS0uMDA1LS4wMTktLjAyLS4wMjJtLS43MTUuMDAyYS4wMi4wMiAwIDAgMC0uMDI3LjAwNmwtLjAwNi4wMTRsLS4wMzQuNjE0cS4wMDEuMDE4LjAxNy4wMjRsLjAxNS0uMDAybC4yMDEtLjA5M2wuMDEtLjAwOGwuMDA0LS4wMTFsLjAxNy0uNDNsLS4wMDMtLjAxMmwtLjAxLS4wMXoiIC8+CgkJPHBhdGggZmlsbD0iY3VycmVudENvbG9yIiBkPSJNMjAgMTcuNWExLjUgMS41IDAgMCAxIC4xNDQgMi45OTNMMjAgMjAuNUg0YTEuNSAxLjUgMCAwIDEtLjE0NC0yLjk5M0w0IDE3LjV6bTAtN2ExLjUgMS41IDAgMCAxIDAgM0g0YTEuNSAxLjUgMCAwIDEgMC0zem0wLTdhMS41IDEuNSAwIDAgMSAwIDNINGExLjUgMS41IDAgMSAxIDAtM3oiIC8+Cgk8L2c+Cjwvc3ZnPg==');
+          -webkit-mask-image: var(--svg);
+          mask-image: var(--svg);
+          -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+          -webkit-mask-size: 100% 100%;
+          mask-size: 100% 100%;
+        }
+        
+        .navbar-collapse {
+          border: 10px;
+        }
+        .nav-link:link, .navbar-brand:link, .nav-link:visited, .navbar-brand:visited {
+          color: rgb(0, 0, 0);
+          text-decoration: none;
+        }
+   
+        .nav-link:hover, .navbar-brand:hover, .nav-link:active, .navbar-brand:active{
+          color: rgb(26, 187, 53) !important;
+          text-decoration: none;
+        }
+
+      </style>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.1.3/css/bootstrap.min.css}" />
         <link rel="stylesheet" th:href="@{/webjars/jquery-ui/1.13.2/jquery-ui.css}" />
@@ -10,7 +116,8 @@
         
         <nav th:fragment="menu" class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-              <a class="navbar-brand" th:href="@{/}">Home</a>
+              <span class="icon"></span>
+              <a class="navbar-brand" th:href="@{/}">Gerenciador de PetShop</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>

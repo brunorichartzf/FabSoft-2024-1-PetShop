@@ -5,7 +5,26 @@
         
         <nav th:replace="layout :: menu">(menu)</nav>
 
-        <h1>PetShop Manager</h1>
+        <br>
+        <div style="text-align:center">
+            <span class="icon" style="width: 128px; height: 128px;"></span>
+            <h1>Gerenciador de PetShop</h1>
+        </div>
+        
+        <br>
+        <div align="center">
+            <a href="/agenda" class="btn btn-primary">Agendamentos</a>
+        </div>
+        <br>
+        <div class="options" align="center">
+            <a href="/clientes" class="btn btn-primary">Clientes</a>
+            <a href="/pets" class="btn btn-primary">Pets</a>
+        </div>
+        <br>
+        <div class="options" align="center">
+            <a href="/funcionarios" class="btn btn-primary">Funcionários</a>
+            <a href="/produtos" class="btn btn-primary">Produtos</a>
+        </div>
         <div th:include="layout :: footer">(footer)</div>
     </body>
 </html>

@@ -5,10 +5,11 @@
         
         <nav th:replace="layout :: menu">(menu)</nav>
 
-        <h1>Detalhes</h1>
+        <br>
+        <h1 style="text-align: center;">Detalhes</h1>
         <br>
 
-        <h3>Cliente</h3>
+        <h3 style="text-align: center;">Cliente</h3>
         <table class="table" id="tabclientes">
             <thead>
                 <th>Nome</th>
@@ -19,7 +20,7 @@
                 <th></th>
             </thead>
             <tbody>
-                <tr th:each="umCliente : ${listaClientes}">
+                <tr class="tableitem" th:each="umCliente : ${listaClientes}">
                     <td th:text="${umCliente.nome}"></td>
                     <td th:text="${umCliente.telefone}"></td>
                     <td th:text="${umCliente.email}"></td>
@@ -31,8 +32,8 @@
             </tbody>
         </table>
         <br>
-
-        <h3>Pets</h3>
+        <br>
+        <h3 style="text-align: center;">Pets</h3>
         <table class="table" id="tabpets">
             <thead>
                 <th>Nome</th>
@@ -42,7 +43,7 @@
                 <th></th>
             </thead>
             <tbody>
-                <tr th:each="umPet : ${listaPets}">
+                <tr class="tableitem" th:each="umPet : ${listaPets}">
                     <td th:text="${umPet.nome}"></td>
                     <td th:text="${umPet.especie}"></td>
                     <td th:text="${umPet.raca}"></td>
@@ -53,8 +54,8 @@
             </tbody>
         </table>
         <br>
-
-        <h3>Agendamentos</h3>
+        <br>
+        <h3 style="text-align: center;">Agendamentos</h3>
         <table class="table" id="tabagendamentos">
             <thead>
                 <th>Data</th>
@@ -67,7 +68,7 @@
                 <th></th>
             </thead>
             <tbody>
-                <tr th:each="umAgendamento : ${listaAgendamentos}">
+                <tr class="tableitem" th:each="umAgendamento : ${listaAgendamentos}">
                     <td th:text="${umAgendamento.data}"></td>
                     <td th:text="${umAgendamento.hora}"></td>
                     <td th:text="${umAgendamento.descricao}"></td>

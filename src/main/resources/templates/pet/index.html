@@ -5,8 +5,14 @@
         
         <nav th:replace="layout :: menu">(menu)</nav>
 
+        <div style="text-align: center">
+        <br>
         <h1>Pets</h1>
+        <br>
         <a href="/pets/novo" class="btn btn-primary">Novo</a>
+        <br>
+        <br>
+        </div>
 
         <table class="table" id="tabpets">
             <thead>
@@ -17,13 +23,13 @@
                 <th></th>
             </thead>
             <tbody>
-                <tr th:each="umPet : ${listaPets}">
-                    <td th:text="${umPet.nome}" style="vertical-align: middle"></td>
-                    <td th:text="${umPet.especie}" style="vertical-align: middle"></td>
-                    <td th:text="${umPet.raca}" style="vertical-align: middle"></td>
-                    <td th:text="${umPet.cliente?.nome}" style="vertical-align: middle"></td>
-                    <td><img th:src="${umPet.foto}" alt="Unavailable" style="width:200px; height:100px; vertical-align: middle;"></td>
-                    <td style="vertical-align: middle"><a th:href="@{'/pets/alterar/' + ${umPet.id}}" class="btn btn-warning">Alterar</a>
+                <tr class="tableitem" th:each="umPet : ${listaPets}">
+                    <td th:text="${umPet.nome}"></td>
+                    <td th:text="${umPet.especie}"></td>
+                    <td th:text="${umPet.raca}"></td>
+                    <td th:text="${umPet.cliente?.nome}"></td>
+                    <td><img th:src="${umPet.foto}" alt="Unavailable" style="width:200px; height:100px;"></td>
+                    <td><a th:href="@{'/pets/alterar/' + ${umPet.id}}" class="btn btn-warning">Alterar</a>
                         <button class="btn btn-danger js-delete" th:data-id="${umPet.id}">Excluir</button>
                     </td>
                 </tr>
@@ -42,8 +48,8 @@
                   <p>Confirma a exclusão do pet?</p>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
-                  <button type="button" class="btn btn-primary" id="btnsim">Sim</button>
+                  <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Não</button>
+                  <button type="button" class="btn btn-danger" id="btnsim">Sim</button>
                 </div>
               </div>
             </div>
