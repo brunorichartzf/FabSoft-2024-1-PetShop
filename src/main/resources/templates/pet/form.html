@@ -18,7 +18,7 @@
 
                 <div class="form-group">
                     <label for="txtespecie">Espécie</label>
-                    <input type="text" th:field="*{especie}" class="form-control" id="txtespecie">
+                    <input type="text" required th:field="*{especie}" class="form-control" id="txtespecie">
                 </div>
 
                 <div class="form-group">
@@ -28,7 +28,7 @@
 
                 <div class="form-group">
                     <label for="txtcliente">Cliente</label>
-                    <select th:field="*{cliente}"  class="form-select">
+                    <select required th:field="*{cliente}"  class="form-select">
                         <option th:each="umCliente : ${listaClientes}"
                             th:text="${umCliente.nome}"
                             th:value="${umCliente.id}"></option>
